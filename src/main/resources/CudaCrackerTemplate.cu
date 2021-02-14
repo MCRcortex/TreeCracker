@@ -30,7 +30,7 @@ inline void gpuAssert(cudaError_t code, const char *file, int line) {
 
 #define DEVICEABLE __host__ __device__
 
-//#include "lcg.h"
+#include "lcg.h"
 
 
 #define THREAD_SIZE 256LLU
@@ -78,10 +78,10 @@ __global__ __launch_bounds__(THREAD_SIZE) void SecondaryFilter() {
 	
 	uint8_t mask = 0;
 	int32_t x_pos;
-	int32_t z_pos = NEXT_INT_16(seed);
+	int32_t z_pos = lcg::next_int<16>(seed);
 	for (int32_t index = 0; index < MAX_TREE_RNG_RANGE_REPLACEMENT * 2 && mask != TARGET_MASK; index++) {
         x_pos = z_pos;
-		z_pos = NEXT_INT_16(seed);
+		z_pos = lcg::next_int<16>(seed);
 		
         AUX_TREE_TEST_INNER_LOOP_CALL_REPLACEMENT
 		
