@@ -30,7 +30,7 @@ inline void gpuAssert(cudaError_t code, const char *file, int line) {
 
 #define DEVICEABLE __host__ __device__
 
-#include "lcg.h"
+//#include "lcg.h"
 
 
 #define THREAD_SIZE 256LLU
@@ -64,7 +64,7 @@ AUX_TREE_FUNCTIONS_REPLACEMENT
 
 
 
-#define NEXT_INT_16(seed) (((seed = ((seed * 0x5DEECE66DLLU + 0xBLLU)&((1LLU<<48)-1)))>>(48-16)))
+#define NEXT_INT_16(seed) (((seed = ((seed * 0x5DEECE66DLLU + 0xBLLU)&((1LLU<<48)-1)))>>(48-4)))
 
 #define TREE_TEST(testMethod, index, expected_x, expected_z, IF_TYPE) IF_TYPE ((!(mask & (1<<index))) && x_pos == expected_x && z_pos == expected_z) mask |= ((uint8_t)testMethod(seed))<<index;
 #define TARGET_MASK ((1<<AUXILIARY_TREE_COUNT)-1)
@@ -78,10 +78,10 @@ __global__ __launch_bounds__(THREAD_SIZE) void SecondaryFilter() {
 	
 	uint8_t mask = 0;
 	int32_t x_pos;
-	int32_t z_pos = lcg::next_int<16>(seed);
+	int32_t z_pos = NEXT_INT_16(seed);
 	for (int32_t index = 0; index < MAX_TREE_RNG_RANGE_REPLACEMENT * 2 && mask != TARGET_MASK; index++) {
         x_pos = z_pos;
-		z_pos = lcg::next_int<16>(seed);
+		z_pos = NEXT_INT_16(seed);
 		
         AUX_TREE_TEST_INNER_LOOP_CALL_REPLACEMENT
 		
