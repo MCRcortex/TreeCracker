@@ -83,7 +83,7 @@ public class LcgTester {
 
         protected LcgCall(CallType type, int callIndex) {
             this.callType = type;
-            this.callIndex = callIndex + 1;
+            this.callIndex = callIndex;
         }
 
         protected LcgCall(CallType type, int callIndex, T bound) {
@@ -242,7 +242,7 @@ public class LcgTester {
 
     public boolean doesRngPass(long seed) {
         for(LcgCall<?> call : comparisons) {
-            if (!call.evaluateLcgCall(new Random(new ConfiguredLcg(call.callIndex).nextSeed(seed)^0x5DEECE66DL)))
+            if (!call.evaluateLcgCall(new Random(new ConfiguredLcg(call.callIndex + 1).nextSeed(seed)^0x5DEECE66DL)))
                 return false;
         }
         return true;
@@ -260,6 +260,7 @@ public class LcgTester {
     }
     public static final Comparator<LcgCall<?>> SORT_BY_COST = Comparator.comparing(LcgCall::getOperationCost);
     public static final Comparator<LcgCall<?>> SORT_BY_POWER = Comparator.comparing(call->-call.getFilterBitCount());
-    public static final Comparator<LcgCall<?>> SORT_BY_COST_THEN_POWER = SORT_BY_COST.thenComparing(SORT_BY_POWER);
+    public static final Comparator<LcgCall<?>> SORT_BY_INDEX = Comparator.comparing(call->call.callIndex);
+    public static final Comparator<LcgCall<?>> SORT_BY_COST_THEN_POWER = SORT_BY_COST.thenComparing(SORT_BY_POWER).thenComparing(SORT_BY_INDEX);
 
 }

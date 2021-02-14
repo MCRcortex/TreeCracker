@@ -3,6 +3,7 @@ package me.cortex.TreeCracker;
 import kaptainwutax.seedutils.lcg.rand.JRand;
 import kaptainwutax.seedutils.mc.ChunkRand;
 import kaptainwutax.seedutils.mc.MCVersion;
+import me.cortex.TreeCracker.LCG.ConfiguredLcg;
 import me.cortex.TreeCracker.LCG.LcgTester;
 import me.cortex.TreeCracker.postProcessor.PostProcessor;
 import me.cortex.TreeCracker.program.CudaProgram;
@@ -49,7 +50,14 @@ public class Main {
         );*/
 
         program.generateCracker().exportSource(new File("./output/out.cu"));
+        for(int i = -187; i < 187; i++) {
+            if (program.secondary.get(1).test.doesRngPass(new ConfiguredLcg(i).nextSeed(86521922412614L)))
+                System.out.println("EEE: " + i);
+        }
 
-
+        JRand test = JRand.ofInternalSeed(86521922412614L);
+        System.out.println(test.nextInt(16)==12);
+        System.out.println(test.nextFloat()<0.2f);
+        System.out.println(test.nextInt(3)==0);
     }
 }

@@ -18,7 +18,7 @@ public class CudaLCGEmitter {
     //TODO: Optimization things
     public String emitLcgTest(LcgTester.LcgCall<?> call) {
         String invertedComparison = "";
-        String lcg = emitLcg(new ConfiguredLcg(call.callIndex));
+        String lcg = emitLcg(new ConfiguredLcg(call.callIndex  + 1 ));
         switch (call.callType) {
             case nextBoolean:
                 boolean nextBoolEqual = true;

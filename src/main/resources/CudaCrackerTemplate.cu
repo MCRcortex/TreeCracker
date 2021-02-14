@@ -73,8 +73,8 @@ __global__ __launch_bounds__(THREAD_SIZE) void SecondaryFilter() {
 	if (idx >= count)
 		return;
 	uint64_t seed = seedBuff[idx];
-	seed = LCG_REVERSE_STAGE_2_REPLACEMENT;
-	//lcg::advance<-MAX_TREE_RNG_RANGE_REPLACEMENT>(seed);
+	//seed = LCG_REVERSE_STAGE_2_REPLACEMENT;
+	lcg::advance<-MAX_TREE_RNG_RANGE_REPLACEMENT>(seed);
 	
 	uint8_t mask = 0;
 	int32_t x_pos;
