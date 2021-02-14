@@ -83,7 +83,6 @@ public class TreeCrackerProgram {
         program.replaceFirstUsingKeyword("INIT_TREE_INNER_X", Integer.toString(primary.pos.x));
         lcg_emitter.lcgVariableName = "seed";
         lcg_emitter.comparisonFailedReturn = "return";
-        System.out.println(lcg_emitter.assembleLcgTester(primaryTester));
         program.replaceFirstUsingKeyword("PRIMARY_TREE_FILTER", lcg_emitter.assembleLcgTester(primaryTester));
 
         //#define TREE_TEST(testMethod, index, expected_x, expected_z, IF_TYPE)
