@@ -78,9 +78,11 @@ public class TreeCrackerProgram {
         program.replaceFirstUsingKeyword("AUX_TREE_FUNCTIONS_REPLACEMENT", generateTreeCheckFunctions());
 
         LcgTester primaryTester = new LcgTester();
-        primaryTester.nextInt(16).equalTo(primary.pos.z);
+        //primaryTester.nextInt(16).equalTo(primary.pos.z);
+        primaryTester.advance(1);
         primary.test.replicateOnto(primaryTester);
         program.replaceFirstUsingKeyword("INIT_TREE_INNER_X", Integer.toString(primary.pos.x));
+        program.replaceFirstUsingKeyword("INIT_TREE_INNER_Z", Integer.toString(primary.pos.z));
         lcg_emitter.lcgVariableName = "seed";
         lcg_emitter.comparisonFailedReturn = "return";
         program.replaceFirstUsingKeyword("PRIMARY_TREE_FILTER", lcg_emitter.assembleLcgTester(primaryTester));
