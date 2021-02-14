@@ -78,7 +78,7 @@ public class LcgTester {
         public final CallType callType;
 
         //TODO: make callIndex a public getter but protected setter
-        public int callIndex;
+        private int callIndex;
         public final optional<T> bound = optional.empty();
 
         protected LcgCall(CallType type, int callIndex) {
@@ -89,6 +89,14 @@ public class LcgTester {
         protected LcgCall(CallType type, int callIndex, T bound) {
             this(type, callIndex);
             this.bound.set(bound);
+        }
+
+        public int getLCGCallSkipIndex() {
+            return callIndex + 1;
+        }
+
+        public int getCallIndex() {
+            return callIndex;
         }
 
 
@@ -242,7 +250,7 @@ public class LcgTester {
 
     public boolean doesRngPass(long seed) {
         for(LcgCall<?> call : comparisons) {
-            if (!call.evaluateLcgCall(new Random(new ConfiguredLcg(call.callIndex + 1).nextSeed(seed)^0x5DEECE66DL)))
+            if (!call.evaluateLcgCall(new Random(new ConfiguredLcg(call.getLCGCallSkipIndex()).nextSeed(seed)^0x5DEECE66DL)))
                 return false;
         }
         return true;
@@ -260,7 +268,7 @@ public class LcgTester {
     }
     public static final Comparator<LcgCall<?>> SORT_BY_COST = Comparator.comparing(LcgCall::getOperationCost);
     public static final Comparator<LcgCall<?>> SORT_BY_POWER = Comparator.comparing(call->-call.getFilterBitCount());
-    public static final Comparator<LcgCall<?>> SORT_BY_INDEX = Comparator.comparing(call->call.callIndex);
+    public static final Comparator<LcgCall<?>> SORT_BY_INDEX = Comparator.comparing(LcgCall::getCallIndex);
     public static final Comparator<LcgCall<?>> SORT_BY_COST_THEN_POWER = SORT_BY_COST.thenComparing(SORT_BY_POWER).thenComparing(SORT_BY_INDEX);
 
 }
