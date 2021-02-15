@@ -35,8 +35,8 @@ public class Main {
         );
 
 
-        /*
-        TreeCrackerProgram program = new TreeCrackerProgram(
+
+        program = new TreeCrackerProgram(
                 new Simple112BlobTree(Simple112BlobTree.FOREST_OAK_TREE, new TreePos(7,11), 4, new int[]{-1,-1,1,-1, -1,-1,0,-1,  -1,-1,-1,-1}),
                 new Simple112BlobTree(Simple112BlobTree.FOREST_OAK_TREE, new TreePos(13,10), 5, new int[]{0,-1,1,-1,  0,-1,1,-1, -1,-1,-1,-1}),
 
@@ -47,8 +47,12 @@ public class Main {
 
                 new Simple112BlobTree(Simple112BlobTree.FOREST_BIRCH_TREE, new TreePos(4,8), 5, new int[]{0,0,1,-1,  1,1,0,-1,  1,-1,1,-1})
 
-        );*/
+        );
 
         program.generateCracker().exportSource(new File("./output/out.cu"));
+
+
+
+
     }
 }

@@ -33,7 +33,7 @@ inline void gpuAssert(cudaError_t code, const char *file, int line) {
 
 
 #define THREAD_SIZE 256LLU
-#define BLOCK_SIZE (1LLU<<25) //(1LLU<<29)
+#define BLOCK_SIZE (1LLU<<27) //(1LLU<<29)
 #define BATCH_SIZE (THREAD_SIZE * BLOCK_SIZE)
 
 #define SEED_SPACE (1LLU<<40)

@@ -77,6 +77,7 @@ public class TreeCrackerProgram {
         program.replaceFirstUsingKeyword("AUXILIARY_TREE_COUNT", Integer.toString(secondary.size()));
         program.replaceFirstUsingKeyword("AUX_TREE_FUNCTIONS_REPLACEMENT", generateTreeCheckFunctions());
 
+        //TODO: more testing on lattice method to make sure it works 100%
         LcgTester primaryTester = new LcgTester();
         //primaryTester.nextInt(16).equalTo(primary.pos.z);
         primaryTester.advance(1);
