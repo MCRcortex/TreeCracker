@@ -36,7 +36,7 @@ inline void gpuAssert(cudaError_t code, const char *file, int line) {
 #define BLOCK_SIZE (1LLU<<27) //(1LLU<<29)
 #define BATCH_SIZE (THREAD_SIZE * BLOCK_SIZE)
 
-#define SEED_SPACE (1LLU<<40)
+
 
 
 __managed__ uint32_t count = 0;
@@ -90,6 +90,9 @@ __managed__ uint64_t outputSeedBuff[6000];//Max seed output for the secondary fi
 #define SIZE_X CONST_CEIL(ORIG_SIZE_X - D_X)
 #define SIZE_Z CONST_CEIL(UPPER_Z - LOWER_Z + 1)
 #define TOTAL_WORK_SIZE (SIZE_X * SIZE_Z)
+
+#define SEED_SPACE TOTAL_WORK_SIZE
+
 
 __global__ __launch_bounds__(THREAD_SIZE) void InitalFilter(const uint64_t offset) {
 	uint64_t idx = (((uint64_t)blockIdx.x * (uint64_t)blockDim.x + (uint64_t)threadIdx.x))+offset;
