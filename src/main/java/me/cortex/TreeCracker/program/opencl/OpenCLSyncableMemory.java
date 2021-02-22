@@ -65,14 +65,22 @@ public class OpenCLSyncableMemory {
 
 
     public int synchronizeToHost(int count, int offset) {
-        return  clEnqueueReadBuffer(context.commandQueue, gpu_memory, CL_TRUE, offset,
-                (long) count * size_of_type, Pointer.toBuffer(cpu_memory),
-                0, null, null);
+        return synchronizeToHost((long) count * size_of_type, offset, gpu_memory, Pointer.to(cpu_memory));
     }
 
     public int synchronizeToGPU(int count, int offset) {
-        return clEnqueueWriteBuffer(context.commandQueue, gpu_memory, CL_TRUE, offset,
-                (long) count * size_of_type, Pointer.toBuffer(cpu_memory),
+        return this.synchronizeToGPU((long) count * size_of_type, offset, gpu_memory, Pointer.to(cpu_memory));
+    }
+
+    private int synchronizeToHost(long byte_count, int offset, cl_mem gpu, Pointer cpu) {
+        return  clEnqueueReadBuffer(context.commandQueue, gpu, CL_TRUE, offset,
+                byte_count, cpu,
+                0, null, null);
+    }
+
+    private int synchronizeToGPU(long byte_count, int offset, cl_mem gpu, Pointer cpu) {
+        return clEnqueueWriteBuffer(context.commandQueue, gpu, CL_TRUE, offset,
+                byte_count, cpu,
                 0, null, null);
     }
 
