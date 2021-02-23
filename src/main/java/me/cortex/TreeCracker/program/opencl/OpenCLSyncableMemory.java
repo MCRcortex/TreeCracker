@@ -3,7 +3,6 @@ package me.cortex.TreeCracker.program.opencl;
 import org.jocl.Pointer;
 import org.jocl.Sizeof;
 import org.jocl.cl_mem;
-import sun.nio.ch.DirectBuffer;
 
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
@@ -12,20 +11,17 @@ import java.nio.LongBuffer;
 
 import static org.jocl.CL.*;
 
-public class OpenCLSyncableMemory {
+public class OpenCLSyncableMemory extends OpenCLComponent {
     private cl_mem gpu_memory;
     private Buffer cpu_memory;
     private int size_of_type;
-
-    private final OpenCLContext context;
-
+    private long size_of_buffer_in_bytes;
 
     public OpenCLSyncableMemory(OpenCLContext context, int size_of_type, Buffer buffer) {
-        if (buffer.capacity() % size_of_type != 0)
-            throw new IllegalArgumentException("Buffer capacity couldnt contain size of element");
+        super(context);
+        size_of_buffer_in_bytes = (long) buffer.capacity() * size_of_type;
         this.size_of_type = size_of_type;
         this.cpu_memory = buffer;
-        this.context = context;
         this.gpu_memory =  clCreateBuffer(context.context, CL_MEM_READ_WRITE, buffer.capacity(), Pointer.to(buffer), null);
     }
 
