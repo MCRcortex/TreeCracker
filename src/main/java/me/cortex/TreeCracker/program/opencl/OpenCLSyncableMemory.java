@@ -51,21 +51,21 @@ public class OpenCLSyncableMemory extends OpenCLComponent {
         this.synchronizeToGPU(cpu_memory.capacity());
     }
 
-    public void synchronizeToHost(int count) {
+    public void synchronizeToHost(long count) {
         this.synchronizeToHost(count, 0);
     }
-    public void synchronizeToGPU(int count) {
+    public void synchronizeToGPU(long count) {
         this.synchronizeToGPU(count, 0);
     }
 
 
 
-    public int synchronizeToHost(int count, int offset) {
-        return synchronizeToHost((long) count * size_of_type, offset, gpu_memory, Pointer.to(cpu_memory));
+    public int synchronizeToHost(long count, int offset) {
+        return synchronizeToHost( count * size_of_type, offset, gpu_memory, Pointer.to(cpu_memory));
     }
 
-    public int synchronizeToGPU(int count, int offset) {
-        return this.synchronizeToGPU((long) count * size_of_type, offset, gpu_memory, Pointer.to(cpu_memory));
+    public int synchronizeToGPU(long count, int offset) {
+        return this.synchronizeToGPU( count * size_of_type, offset, gpu_memory, Pointer.to(cpu_memory));
     }
 
     private int synchronizeToHost(long byte_count, int offset, cl_mem gpu, Pointer cpu) {

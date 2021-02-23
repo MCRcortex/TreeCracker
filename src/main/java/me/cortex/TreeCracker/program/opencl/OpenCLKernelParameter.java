@@ -43,6 +43,7 @@ public class OpenCLKernelParameter {
         if (object instanceof OpenCLGPUReadonlyMemory)
             return ((OpenCLGPUReadonlyMemory)object);
 
+
         if (object instanceof long[])
             return new OpenCLGPUReadonlyMemory(context, (long[]) object);
         if (object instanceof int[])
@@ -65,6 +66,9 @@ public class OpenCLKernelParameter {
         if (object instanceof OpenCLSyncableMemory)
             return false;
 
+        if (object instanceof OpenCLGPUOnlyMemory)
+            return false;
+
 
         return true;
     }
@@ -85,6 +89,14 @@ public class OpenCLKernelParameter {
 
         if (object instanceof OpenCLSyncableMemory)
             return ((OpenCLSyncableMemory)object);
+
+        if (object instanceof OpenCLGPUReadonlyMemory)
+            throw new IllegalStateException("Cannot have synchronised readonly memory");
+
+        if (object instanceof OpenCLGPUOnlyMemory)
+            throw new IllegalStateException("Cannot have synchronised gpu memory, it kinda already is");
+
+
 
         if (object instanceof byte[])
             return new OpenCLSyncableMemory(context, (byte[]) object);

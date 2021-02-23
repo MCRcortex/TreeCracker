@@ -103,9 +103,6 @@ public class OpenCLProgram {
         cl_command_queue commandQueue = clCreateCommandQueueWithProperties(
                 context, device, properties, null);
 
-        long[] size_of_result = new long[1];
-        clGetPlatformInfo(platform, CL_PLATFORM_PROFILE, 0, Pointer.to(new char[199999]),size_of_result);
-        System.out.println(size_of_result[0]);
         return new OpenCLContextHolder(context, device, properties, commandQueue);
     }
 

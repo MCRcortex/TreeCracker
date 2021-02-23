@@ -5,6 +5,7 @@ import org.jocl.Sizeof;
 import org.jocl.cl_kernel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.jocl.CL.*;
@@ -32,8 +33,11 @@ public class OpenCLKernel extends OpenCLComponent {
     }
 
     public void call(long[] global_work_size, Object... args) {
+        call(global_work_size, null, args);
+    }
+    public void callEx(long[] global_work_size, long[] local_work_size, long[] global_work_offset, Object... args) {
         setKernelParametersSynchronizedCall(args);
-        enqueue(global_work_size, null, null);
+        enqueue(global_work_size, local_work_size, global_work_offset);
         context.flushAndFinish();
         synchronizeSynchronousParameters();
         context.flushAndFinish();
