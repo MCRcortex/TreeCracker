@@ -34,12 +34,21 @@ public class OpenCLProgram extends OpenCLComponent {
         this(context, new String[]{source});
     }
 
-
-
-    public OpenCLKernel createKernel(String kernel_name, Class<?>... argTypes) {
+    public OpenCLKernel createKernel(String kernel_name, Object... argTypes) {
         OpenCLKernelParameter[] params = new OpenCLKernelParameter[argTypes.length];
         for (int i = 0; i < params.length; i++) {
-            params[i] = new OpenCLKernelParameter(argTypes[i], i);
+            if (argTypes[i] instanceof OpenCLKernelParameter) {
+                params[i] = (OpenCLKernelParameter) argTypes[i];
+                continue;
+            }
+            if (argTypes[i] instanceof OpenCLSyncableMemory) {
+                params[i] = new OpenCLKernelParameter(OpenCLSyncableMemory.class, i, false, false);
+            }
+            if (argTypes[i] instanceof Class<?>) {
+                params[i] = new OpenCLKernelParameter((Class<?>) argTypes[i], i);
+                continue;
+            }
+            throw new IllegalArgumentException("Argument parameter description");
         }
         return createKernel(kernel_name, params);
     }

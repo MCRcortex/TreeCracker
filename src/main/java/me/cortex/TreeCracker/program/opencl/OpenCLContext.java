@@ -24,8 +24,10 @@ public class OpenCLContext {
     }
 
 
-
-
+    public void flushAndFinish() {
+        clFlush(commandQueue);
+        clFinish(commandQueue);
+    }
 
     public static OpenCLContext createNewContext() {
         // The platform, device type and device number

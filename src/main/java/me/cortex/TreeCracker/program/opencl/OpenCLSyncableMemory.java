@@ -22,7 +22,7 @@ public class OpenCLSyncableMemory extends OpenCLComponent {
         size_of_buffer_in_bytes = (long) buffer.capacity() * size_of_type;
         this.size_of_type = size_of_type;
         this.cpu_memory = buffer;
-        this.gpu_memory =  clCreateBuffer(context.context, CL_MEM_READ_WRITE, buffer.capacity(), Pointer.to(buffer), null);
+        this.gpu_memory =  clCreateBuffer(context.context, CL_MEM_READ_WRITE, size_of_buffer_in_bytes, Pointer.to(buffer), null);
     }
 
     public OpenCLSyncableMemory(OpenCLContext context, int size_of_type, int number_of_elements) {
@@ -45,10 +45,10 @@ public class OpenCLSyncableMemory extends OpenCLComponent {
 
 
     public void synchronizeToHost() {
-        this.synchronizeToHost(cpu_memory.capacity() / size_of_type);
+        this.synchronizeToHost(cpu_memory.capacity());
     }
     public void synchronizeToGPU() {
-        this.synchronizeToGPU(cpu_memory.capacity() / size_of_type);
+        this.synchronizeToGPU(cpu_memory.capacity());
     }
 
     public void synchronizeToHost(int count) {
@@ -83,5 +83,9 @@ public class OpenCLSyncableMemory extends OpenCLComponent {
 
     public void release() {
         clReleaseMemObject(gpu_memory);
+    }
+
+    public Pointer getGPUMemory() {
+        return Pointer.to(gpu_memory);
     }
 }
