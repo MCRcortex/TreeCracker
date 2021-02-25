@@ -32,8 +32,14 @@ public class OpenCLKernel extends OpenCLComponent {
         mustBeSynchronous = mustBeSync;
     }
 
+
+    //Had to duplicate cause java variable arg count thing detection is shit
     public void call(long[] global_work_size, Object... args) {
-        call(global_work_size, null, args);
+        setKernelParametersSynchronizedCall(args);
+        enqueue(global_work_size, null, null);
+        context.flushAndFinish();
+        synchronizeSynchronousParameters();
+        context.flushAndFinish();
     }
     public void callEx(long[] global_work_size, long[] local_work_size, long[] global_work_offset, Object... args) {
         setKernelParametersSynchronizedCall(args);

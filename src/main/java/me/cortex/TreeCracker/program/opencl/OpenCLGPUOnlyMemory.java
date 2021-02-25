@@ -5,7 +5,7 @@ import org.jocl.*;
 
 import static org.jocl.CL.*;
 
-public class OpenCLGPUOnlyMemory extends OpenCLComponent{
+public class OpenCLGPUOnlyMemory extends OpenCLComponent implements IGPUMemory {
     public final cl_mem gpu_memory;
     public OpenCLGPUOnlyMemory(OpenCLContext context, long size) {
         super(context);
@@ -14,5 +14,9 @@ public class OpenCLGPUOnlyMemory extends OpenCLComponent{
 
     public void release() {
         clReleaseMemObject(gpu_memory);
+    }
+
+    public Pointer getGPUMemory() {
+        return Pointer.to(gpu_memory);
     }
 }

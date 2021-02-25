@@ -14,6 +14,7 @@ public class OpenCLGPUReadonlyMemory extends OpenCLComponent {
     public final cl_mem gpu_memory_raw;
     public final Pointer gpu_memory;
     public final int type_size;
+
     public OpenCLGPUReadonlyMemory(OpenCLContext context, int size_of_type, Buffer buffer) {
         super(context);
         type_size = size_of_type;
