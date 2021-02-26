@@ -64,7 +64,10 @@ public class OpenCLKernel extends OpenCLComponent {
             if (!param.objectCanBeThisParameter(arg))
                 throw new IllegalArgumentException("Parameter provided could not be a kernel parameter");
 
-            if (param.shouldBeSynced) {
+
+            if (arg instanceof OpenCLGPUOnlyMemory) {
+                setArg(param.kernel_arg_index, ((OpenCLGPUOnlyMemory) arg).getGPUMemory());
+            } else if (param.shouldBeSynced) {
 
                 OpenCLSyncableMemory syncMemory = param.objectToSyncableMemory(context, arg);
                 syncMemory.synchronizeToGPU();

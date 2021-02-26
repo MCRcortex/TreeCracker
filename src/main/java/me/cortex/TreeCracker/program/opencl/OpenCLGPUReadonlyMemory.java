@@ -10,7 +10,7 @@ import java.nio.LongBuffer;
 
 import static org.jocl.CL.*;
 
-public class OpenCLGPUReadonlyMemory extends OpenCLComponent {
+public class OpenCLGPUReadonlyMemory extends OpenCLComponent implements IGPUMemory {
     public final cl_mem gpu_memory_raw;
     public final Pointer gpu_memory;
     public final int type_size;
@@ -38,5 +38,10 @@ public class OpenCLGPUReadonlyMemory extends OpenCLComponent {
 
     public void release() {
         clReleaseMemObject(gpu_memory_raw);
+    }
+
+    @Override
+    public Pointer getGPUMemory() {
+        return  gpu_memory;
     }
 }
