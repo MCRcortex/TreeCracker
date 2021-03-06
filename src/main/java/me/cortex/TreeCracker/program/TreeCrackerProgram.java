@@ -68,6 +68,8 @@ public class TreeCrackerProgram {
 
         calculateTreeOrder();
 
+        float filterBits = primary.test.getFilterPower();
+        //System.out.println(filterBits);
         System.out.println("Using primary tree at " + primary.pos + " with filter power of " + (primary.test.getFilterPower()+8) + " bits");
 
         //TODO: CLEAN UP THIS SYSTEM
