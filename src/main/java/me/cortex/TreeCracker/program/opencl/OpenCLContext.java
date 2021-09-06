@@ -3,7 +3,6 @@ package me.cortex.TreeCracker.program.opencl;
 import org.jocl.*;
 
 import static org.jocl.CL.*;
-import static org.jocl.CL.CL_PLATFORM_PROFILE;
 
 public class OpenCLContext {
     public final cl_context context;

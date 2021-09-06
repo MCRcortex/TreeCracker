@@ -5,7 +5,6 @@ import org.jocl.Sizeof;
 import org.jocl.cl_kernel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.jocl.CL.*;

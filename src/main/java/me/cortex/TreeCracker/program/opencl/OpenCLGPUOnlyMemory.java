@@ -1,7 +1,7 @@
 package me.cortex.TreeCracker.program.opencl;
 
 import org.jocl.Pointer;
-import org.jocl.*;
+import org.jocl.cl_mem;
 
 import static org.jocl.CL.*;
 
