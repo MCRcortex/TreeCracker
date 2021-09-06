@@ -1,7 +1,6 @@
 package me.cortex.TreeCracker.program.opencl;
 
 import me.cortex.TreeCracker.NotImplementedException;
-import org.jocl.Pointer;
 
 import java.nio.Buffer;
 

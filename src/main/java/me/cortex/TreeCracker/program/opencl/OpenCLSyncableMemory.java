@@ -1,7 +1,6 @@
 package me.cortex.TreeCracker.program.opencl;
 
 import org.jocl.Pointer;
-import org.jocl.Sizeof;
 import org.jocl.cl_mem;
 
 import java.nio.Buffer;
