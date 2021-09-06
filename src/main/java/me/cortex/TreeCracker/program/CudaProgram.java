@@ -1,22 +1,12 @@
 package me.cortex.TreeCracker.program;
 
-import me.cortex.TreeCracker.LCG.ConfiguredLcg;
-import me.cortex.TreeCracker.LCG.LcgTester;
 import org.apache.commons.io.IOUtils;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
-import java.nio.file.StandardOpenOption;
-import java.util.Comparator;
-import java.util.stream.Collectors;
-
-import static me.cortex.TreeCracker.LCG.LcgComparison.GetInvertedTypeStringOperator;
 
 public class CudaProgram {
     private String currentSource;
